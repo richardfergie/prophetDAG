@@ -5,6 +5,9 @@ import numpy as np
 import pystan
 
 class ProphetDAG(object):
+    def __init__(self, n_samp=100):
+        self.n_samp = n_samp
+
     functions_block = """
 functions {
   matrix get_changepoint_matrix(vector t, vector t_change, int T, int S) {
@@ -394,8 +397,7 @@ generated quantities {{
                 f'a_{i}': np.array([1,1,1,1]),
                 f'm_{i}': np.array([0,0,0,0]),
                 f'X_pred_{i}': seasonal_features_future[df.shape[0]:],
-                f'S_pred_{i}': 3,
-                'n_samp': 1000
+                f'S_pred_{i}': 3
             }
             if m.growth == 'linear':
               dat[f'cap_{i}'] = np.zeros(m.history.shape[0])
@@ -418,6 +420,7 @@ generated quantities {{
                }
             all_dat.update(dat)
             all_init.update(stan_init)
+        all_dat['n_samp'] = self.n_samp
         self.dat = all_dat
         model_code = self.generate_stan_code(graph)
         model = pystan.StanModel(model_code=model_code)

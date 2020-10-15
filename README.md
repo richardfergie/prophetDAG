@@ -27,7 +27,7 @@ The key parts of the example are as follows:
 
 ## Define the DAG
 
-```
+``` python
 from prophetDAG import ProphetDAG
 import networkx as nx
 from fbprophet import Prophet
@@ -44,7 +44,7 @@ graph.add_edge(4,1)
 
 ## Create a Prophet Model for each node and attach the data
 
-```
+``` python
 for (i,d) in zip(graph.nodes,[total,hamilton,washington,franklin]):
     graph.nodes[i]['df'] = d
     m = Prophet()
@@ -59,7 +59,9 @@ for (i,d) in zip(graph.nodes,[total,hamilton,washington,franklin]):
 
 ## Fit the model
 
-```
+``` python
 p = ProphetDAG()
+# Or specify the number of samples in the output
+# p = ProphetDAG(n_samp=1000)
 result = p.fit(graph)
 ```
