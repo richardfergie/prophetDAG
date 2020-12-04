@@ -21,7 +21,7 @@ about this:
 Prophet does not propagate the uncertainty for `r(t)` into the forecast for
 `y(t)`; this is where `ProphetDAG` can help.
 
-See the [notebook](blob/master/ProphetDAG demo.ipynb) for a worked example.
+See the [notebook](blob/master/ProphetDAG%20demo.ipynb) for a worked example.
 
 The key parts of the example are as follows:
 
